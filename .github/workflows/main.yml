@@ -58,3 +58,6 @@ jobs:
           REMOTE_HOST: "119.29.101.122"
           REMOTE_USER: "root"
           TARGET: "/test"
+        run: |
+          cnpm install
+          
