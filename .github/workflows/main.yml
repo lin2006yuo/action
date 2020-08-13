@@ -49,15 +49,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12"
-      - name: SSH Auto Deploy
-        uses: hengkx/ssh-deploy@v1.0.1
-        env:
-          HOST: 119.29.101.122
-          USERNAME: root
-          PASSWORD: ${{secrets.PASSWORD}}
-          SOURCE: './'
-          TARGET: /test
-          AFTER_COMMAND: './install.ssh'
+      # - name: SSH Auto Deploy
+      #   uses: hengkx/ssh-deploy@v1.0.1
+      #   env:
+      #     HOST: 119.29.101.122
+      #     USERNAME: root
+      #     PASSWORD: ${{secrets.PASSWORD}}
+      #     SOURCE: './'
+      #     TARGET: /test
+      #     AFTER_COMMAND: './install.ssh'
       # - name: Rsync Deployments Action
       #   uses: Burnett01/rsync-deployments@4.1
       #   with:
@@ -67,16 +67,19 @@ jobs:
       #     remote_user: root
       #     remote_key: ${{ secrets.SERVER_SSH_KEY }}
           # rsh: -l root 119.29.101.122 /test/install.sh
-      # - name: Deploy to Server
-      #   uses: easingthemes/ssh-deploy@v2.1.1
-      #   env:
-      #     SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-      #     ARGS: "-avz --delete"
-      #     SOURCE: "./"
-      #     REMOTE_HOST: "119.29.101.122"
-      #     REMOTE_USER: "root"
-      #     TARGET: "/test"
-      # - name: Install
-      #   run: |
-      #     cnpm install
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@v2.1.1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-avz --delete"
+          SOURCE: "./"
+          REMOTE_HOST: "119.29.101.122"
+          REMOTE_USER: "root"
+          TARGET: "/test"
+      - name: Execute SSH commmands on remote server
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: root@119.29.101.122
+          privateKey: ${{ secrets.SERVER_SSH_KEY }}
+          command: /test/install.sh
 
