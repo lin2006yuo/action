@@ -48,7 +48,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "10.x"
+          node-version: "12"
       - name: SSH Auto Deploy
         uses: hengkx/ssh-deploy@v1.0.1
         env:
