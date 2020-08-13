@@ -49,16 +49,25 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "10.x"
-      - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@v2.1.1
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          ARGS: "-avz --delete"
-          SOURCE: "./"
-          REMOTE_HOST: "119.29.101.122"
-          REMOTE_USER: "root"
-          TARGET: "/test"
-      - name: Install
-        run: |
-          cnpm install
+      - name: Rsync Deployments Action
+        uses: Burnett01/rsync-deployments@4.1
+        with:
+          path: ./
+          remote_path: /test
+          remote_host: 119.29.101.122
+          remote_user: root
+          remote_key: ${{ secrets.SERVER_SSH_KEY }}
+          rsh: cnpm install
+      # - name: Deploy to Server
+      #   uses: easingthemes/ssh-deploy@v2.1.1
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+      #     ARGS: "-avz --delete"
+      #     SOURCE: "./"
+      #     REMOTE_HOST: "119.29.101.122"
+      #     REMOTE_USER: "root"
+      #     TARGET: "/test"
+      # - name: Install
+      #   run: |
+      #     cnpm install
 
