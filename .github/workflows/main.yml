@@ -57,7 +57,7 @@ jobs:
           remote_host: 119.29.101.122
           remote_user: root
           remote_key: ${{ secrets.SERVER_SSH_KEY }}
-          rsh: /test/install.sh
+          rsh: rsh -l root 119.29.101.122 /test/install.sh
       # - name: Deploy to Server
       #   uses: easingthemes/ssh-deploy@v2.1.1
       #   env:
