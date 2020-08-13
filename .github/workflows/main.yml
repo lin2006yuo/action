@@ -81,5 +81,5 @@ jobs:
         with:
           hosts: root@119.29.101.122
           privateKey: ${{ secrets.SERVER_SSH_KEY }}
-          command: /test/install.sh
+          command: sh /test/install.sh
 
