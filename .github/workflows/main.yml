@@ -49,15 +49,24 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "10.x"
-      - name: Rsync Deployments Action
-        uses: Burnett01/rsync-deployments@4.1
-        with:
-          path: ./
-          remote_path: /test
-          remote_host: 119.29.101.122
-          remote_user: root
-          remote_key: ${{ secrets.SERVER_SSH_KEY }}
-          rsh: -l root 119.29.101.122 /test/install.sh
+      - name: SSH Auto Deploy
+        uses: hengkx/ssh-deploy@v1.0.1
+        env:
+          HOST: 119.29.101.122
+          USERNAME: root
+          PASSWORD: ${{secrets.PASSWORD}}
+          SOURCE: './'
+          TARGET: /test
+          AFTER_COMMAND: './install.ssh'
+      # - name: Rsync Deployments Action
+      #   uses: Burnett01/rsync-deployments@4.1
+      #   with:
+      #     path: ./
+      #     remote_path: /test
+      #     remote_host: 119.29.101.122
+      #     remote_user: root
+      #     remote_key: ${{ secrets.SERVER_SSH_KEY }}
+          # rsh: -l root 119.29.101.122 /test/install.sh
       # - name: Deploy to Server
       #   uses: easingthemes/ssh-deploy@v2.1.1
       #   env:
