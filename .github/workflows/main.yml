@@ -81,5 +81,6 @@ jobs:
         with:
           hosts: root@119.29.101.122
           privateKey: ${{ secrets.SERVER_SSH_KEY }}
-          command: sh /test/install.sh
-
+          command: |
+            cd /test
+            cnpm install
