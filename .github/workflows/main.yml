@@ -84,4 +84,4 @@ jobs:
           command: |
             cd /test
             cnpm install
-            pm2 restart index.js
+            pm2 restart index.js || pm2 start index.js
